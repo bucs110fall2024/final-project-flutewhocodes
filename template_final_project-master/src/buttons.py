@@ -1,40 +1,46 @@
-import pygame
+import tkinter as tk
+from tkinter import *
 
 
-class Button(pygame.sprite.Sprite):
-
-    def __init__(self, x=0, y=0, width=175, height=75, color=(200, 0, 200), text="Press Me"):
-        super().__init__()
-        self.image = pygame.Surface((width, height))
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = x, y
-        self.color = color
-        self.image.fill(self.color)
+class Buttons:
+    def __init__(self, root, controller):
+        """
+        initializes the title and buttons on the GUI
         
-        text_color = (255-color[0], 255-color[1], 255-color[2]) #complimentary color
-        self.message = pygame.font.SysFont(None, 36).render(text, True, text_color)
+        There are buttons to record and stop recording
+        the first and second recordings, select the 
+        backing track, save the combined audio file, 
+        and provide instructions on how to use the program
         
-        self.image.blit(self.message, (20, 20))
+        args: root, controller
+        """
+        
+        self.controller = controller
+        self.root = root
 
-    def highlight(self):
-        highlight_color = []
-        for i, c in enumerate(self.color):
-            if c+50 < 255:
-                highlight_color.append(c+50) 
-            else:
-                highlight_color.append(255)
-        self.image.fill(highlight_color)
-        self.image.blit(self.message, (20, 20))
+        title_label = Label(self.root, text="Duet Recording")
+        title_label.grid(row=0)
 
-    def color_default(self):
-        self.image.fill(self.color)
-        self.image.blit(self.message, (20, 20))
+        self.select_button = tk.Button(root, text="Select Backing Track", command=self.controller.select_file)
+        self.select_button.grid(row=1,column=0)
 
+        self.record_button = tk.Button(root, text="Record First", command=self.controller.start_recording1)
+        self.record_button.grid(row=2,column=0)
 
-## EXAmPLE Button Creation
+        self.stop_button = tk.Button(root, text="Stop Recording", command=self.controller.stop_recording1)
+        self.stop_button.grid(row=3,column=0)
 
-if __name__ == "__main__":
+        # self.overlay_button = tk.Button(root, text="Save", command=self.controller.save_first)
+        # self.overlay_button.grid(row=4,column=0)
+        
+        self.record_button = tk.Button(root, text="Record Second", command=self.controller.start_recording2)
+        self.record_button.grid(row=2,column=1)
 
-    b1 = Button(color=(200, 200, 200), text="Press Me")
-    b2 = Button(color=(200, 0, 0), text="Don't Press Me")
-    
+        self.stop_button = tk.Button(root, text="Stop Recording", command=self.controller.stop_recording2)
+        self.stop_button.grid(row=3,column=1)
+
+        self.overlay_button = tk.Button(root, text="Save", command=self.controller.save_overlay)
+        self.overlay_button.grid(row=4,column=1)
+        
+        self.info_button = tk.Button(root, text="Need help?", command = self.controller.game_info)
+        self.info_button.grid(row=0,column=3)
