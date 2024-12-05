@@ -1,8 +1,8 @@
 
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 
-# << Project: Duet Recording >>
-## CS110 Final Project  << Fall, 2024 >>
+# Project: Duet Recording 
+## CS110 Final Project; Fall, 2024
 
 ## Team members
 
@@ -51,6 +51,7 @@ instead of making 2 separate recordings.
 - pydub
 - wave
 - threading
+- pyaudio
 
 ## References
 - Microsoft Copilot
